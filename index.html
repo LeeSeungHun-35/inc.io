@@ -1,1 +1,60 @@
-<h1>Hello World</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>시저 암호화/복호화</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  textarea {
+    width: 300px;
+    height: 100px;
+    margin: 10px;
+  }
+</style>
+</head>
+<body>
+  <h1>시저 암호화/복호화</h1>
+  <textarea id="inputText" placeholder="입력할 텍스트를 입력하세요"></textarea><br>
+  <label for="shift">시프트 값:</label>
+  <input type="number" id="shift" value="3"><br>
+  <button onclick="encrypt()">암호화</button>
+  <button onclick="decrypt()">복호화</button><br>
+  <textarea id="outputText" placeholder="결과가 여기에 표시됩니다" readonly></textarea>
+
+  <script>
+    function encrypt() {
+      var inputText = document.getElementById("inputText").value.toUpperCase();
+      var shift = parseInt(document.getElementById("shift").value);
+      var outputText = "";
+      for (var i = 0; i < inputText.length; i++) {
+        var charCode = inputText.charCodeAt(i);
+        if (charCode >= 65 && charCode <= 90) {
+          outputText += String.fromCharCode(((charCode - 65 + shift) % 26) + 65);
+        } else {
+          outputText += inputText[i];
+        }
+      }
+      document.getElementById("outputText").value = outputText;
+    }
+
+    function decrypt() {
+      var inputText = document.getElementById("inputText").value.toUpperCase();
+      var shift = parseInt(document.getElementById("shift").value);
+      var outputText = "";
+      for (var i = 0; i < inputText.length; i++) {
+        var charCode = inputText.charCodeAt(i);
+        if (charCode >= 65 && charCode <= 90) {
+          outputText += String.fromCharCode(((charCode - 65 - shift + 26) % 26) + 65);
+        } else {
+          outputText += inputText[i];
+        }
+      }
+      document.getElementById("outputText").value = outputText;
+    }
+  </script>
+</body>
+</html>
